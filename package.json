@@ -1,0 +1,25 @@
+{
+  "name": "008--full_stack_auth_with_file_upload",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoolShivas/008--Full_Stack_Auth_With_File_Upload.git"
+  },
+  "keywords": [],
+  "author": "shiva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoolShivas/008--Full_Stack_Auth_With_File_Upload/issues"
+  },
+  "homepage": "https://github.com/CoolShivas/008--Full_Stack_Auth_With_File_Upload#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
