@@ -3,6 +3,14 @@ import mongoose from "mongoose";
 
 const server = express();
 
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "dkxfog2vk",
+  api_key: "428767453634413",
+  api_secret: "q5EivkVE4pv8w7UgOfYpZQU51EU",
+});
+
 mongoose
   .connect(
     "mongodb+srv://shivas2710cool00_db_user:PK9bmeDXdV5edZLf@cluster0.reupciq.mongodb.net/",
