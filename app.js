@@ -155,6 +155,26 @@ server.post(
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
 
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
+
+// // // Starting of posting the data on database and cloudinary and comparing with the saved data for login page route;
+
+server.post("/logIn", (request, response) => {
+  console.log(request.body); // Gettting undefined on Terminal and Surfing on Browser;
+  /**
+   *  Restarting 'app.js'
+      Server is running at Port :-) 7000
+      MongoDB Connected Successfully...!
+      undefined
+   */
+});
+
+// // // Ending of posting the data on database and cloudinary and comparing with the saved data for login page route;
+
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
+
 const PORT = 7000;
 
 server.listen(PORT, () => {
