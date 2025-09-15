@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
   imageURL: String,
 });
 
-const User = mongoose.model("user", userSchema);
+const UserSCHEMA = mongoose.model("user", userSchema);
 
 // // // Ending of formation of Models Schema i.e., userSchema as a reference to save it on database of MongoDB;
 
@@ -76,11 +76,12 @@ const upload = multer({ storage: storage });
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
 
+// // // Starting of posting the data on database and cloudinary of the register page route;
 server.post(
   "/register",
   upload.single("backendRegisterUploadImage"),
   async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     // // // Now, Open the User Register page on Browser and fill the details with image then have a look on Terminal Output below :-
     /**
      *Restarting 'app.js'
@@ -93,7 +94,7 @@ server.post(
       }
      *
      */
-    console.log(request.file); // // file comes from multer as we have make the diskStorage;
+    // console.log(request.file); // // file comes from multer as we have make the diskStorage;
     /**
      *{
         fieldname: 'backendRegisterUploadImage',
@@ -107,8 +108,52 @@ server.post(
       }
      *
      */
+
+    const uploadUserImage = request.file.path;
+    // console.log(uploadUserImage); // // Getting the data of (request.file) especially the image path;
+
+    // // Destructing the data of request.body instead of writing the whole such as (const name = request.body.backendRegisterName) and all;
+    const {
+      backendRegisterName,
+      backendRegisterEmail,
+      backendRegisterPassword,
+    } = request.body; // // Getting the data of (request.body) especially the user data of register page;
+
+    // // Uploading the files such as images or pdfs  in the Cloudinary;
+    const cloudinaryDirectory = await cloudinary.uploader.upload(
+      uploadUserImage,
+      {
+        folder: "FUllStack_Authen",
+      }
+    );
+
+    // // Now, Creating the User or saving the User details on MongoDB;
+    const dataBase = await UserSCHEMA.create({
+      userName: backendRegisterName,
+      userEmail: backendRegisterEmail,
+      userPassword: backendRegisterPassword,
+      fileName: uploadUserImage,
+      publicID: cloudinaryDirectory.public_id,
+      imageURL: cloudinaryDirectory.secure_url,
+    });
+
+    // // After filling the User Register details redirecting to login page;
+    response.redirect("/");
+
+    // // // Starting of Checking the data in json whether it is getting or not;
+    // response.json({
+    //   message: "Data saved successfully...!",
+    //   success: true,
+    //   cloudinaryResponse,
+    // });
+    // // // Ending of Checking the data in json whether it is getting or not;
   }
 );
+
+// // // Ending of posting the data on database and cloudinary of the register page route;
+
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
 
 const PORT = 7000;
 
