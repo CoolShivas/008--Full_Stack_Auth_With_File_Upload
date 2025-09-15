@@ -28,7 +28,8 @@
       style="width: 600px; border-radius: 10px; border: 2px solid blue"
     >
       <h1 class="text-center">User Register</h1>
-      <form action="/register">
+      <!-- Using enctype for the image upload -->
+      <form action="/register" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
           <label class="form-label">Name</label>
           <input
@@ -57,7 +58,7 @@
           <label class="form-label">Profile</label>
           <input
             type="file"
-            name="backendRegisterUploadFile"
+            name="backendRegisterUploadImage"
             class="form-control bg-black text-light"
           />
         </div>

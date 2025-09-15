@@ -76,7 +76,39 @@ const upload = multer({ storage: storage });
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
 
-server.post("/upload", upload.single("fileUploaded"), async(request, response));
+server.post(
+  "/register",
+  upload.single("backendRegisterUploadImage"),
+  async (request, response) => {
+    console.log(request.body);
+    // // // Now, Open the User Register page on Browser and fill the details with image then have a look on Terminal Output below :-
+    /**
+     *Restarting 'app.js'
+      Server is running at Port :-) 7000
+      MongoDB Connected Successfully...!
+      [Object: null prototype] {
+        backendRegisterName: 'Shiva',
+        backendRegisterEmail: 'shiv@gmail.com',
+        backendRegisterPassword: '123'
+      }
+     *
+     */
+    console.log(request.file); // // file comes from multer as we have make the diskStorage;
+    /**
+     *{
+        fieldname: 'backendRegisterUploadImage',
+        originalname: 'Nutrition.png',
+        encoding: '7bit',
+        mimetype: 'image/png',
+        destination: './public/uploads',
+        filename: 'backendRegisterUploadImage-1757926649799.png',
+        path: 'public\\uploads\\backendRegisterUploadImage-1757926649799.png',
+        size: 638054
+      }
+     *
+     */
+  }
+);
 
 const PORT = 7000;
 
