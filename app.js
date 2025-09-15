@@ -21,6 +21,8 @@ mongoose
   .then(() => console.log("MongoDB Connected Successfully...!"))
   .catch((error) => console.log(error));
 
+server.use(express.urlencoded({ extended: true }));
+
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
 
@@ -161,12 +163,36 @@ server.post(
 // // // Starting of posting the data on database and cloudinary and comparing with the saved data for login page route;
 
 server.post("/logIn", (request, response) => {
-  console.log(request.body); // Gettting undefined on Terminal and Surfing on Browser;
+  // console.log(request.body); // Gettting undefined on Terminal and Surfing on Browser;
   /**
    *  Restarting 'app.js'
       Server is running at Port :-) 7000
       MongoDB Connected Successfully...!
       undefined
+   */
+  /**
+   *  request.body is coming as undefined.
+      That happens because Express does not parse incoming request bodies by default.
+
+      Why it works in /register:
+
+      In /register, you are using multer, which parses multipart/form-data and attaches text fields to request.body and files to request.file.
+
+      But in /logIn, you don’t have multer or any body parser set up, so request.body is undefined.
+
+      Therefore, to resolve this Undefined issue by using :-
+      server.use(express.urlencoded({ extended: true })); // to parse form-urlencoded body
+      server.use(express.json()); // to parse JSON body
+
+   */
+
+  console.log(request.body); // Now, Getting the data;
+  /**
+   *Restarting 'app.js'
+    Server is running at Port :-) 7000
+    MongoDB Connected Successfully...!
+    { backendLogInEmail: 'kallu@gmail.com', backendLogInPassword: '123' }
+   *
    */
 });
 
