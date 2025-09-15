@@ -157,43 +157,59 @@ server.post(
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
 
-///////***************************************************************************************************** *//////
-///////***************************************************************************************************** *//////
-
 // // // Starting of posting the data on database and cloudinary and comparing with the saved data for login page route;
 
-server.post("/logIn", (request, response) => {
-  // console.log(request.body); // Gettting undefined on Terminal and Surfing on Browser;
-  /**
-   *  Restarting 'app.js'
-      Server is running at Port :-) 7000
-      MongoDB Connected Successfully...!
-      undefined
-   */
-  /**
-   *  request.body is coming as undefined.
-      That happens because Express does not parse incoming request bodies by default.
+server.post("/logIn", async (request, response) => {
+  // // console.log(request.body); // Gettting undefined on Terminal and Surfing on Browser;
+  // /**
+  //  *  Restarting 'app.js'
+  //     Server is running at Port :-) 7000
+  //     MongoDB Connected Successfully...!
+  //     undefined
+  //  */
+  // /**
+  //  *  request.body is coming as undefined.
+  //     That happens because Express does not parse incoming request bodies by default.
 
-      Why it works in /register:
+  //     Why it works in /register:
 
-      In /register, you are using multer, which parses multipart/form-data and attaches text fields to request.body and files to request.file.
+  //     In /register, you are using multer, which parses multipart/form-data and attaches text fields to request.body and files to request.file.
 
-      But in /logIn, you don’t have multer or any body parser set up, so request.body is undefined.
+  //     But in /logIn, you don’t have multer or any body parser set up, so request.body is undefined.
 
-      Therefore, to resolve this Undefined issue by using :-
-      server.use(express.urlencoded({ extended: true })); // to parse form-urlencoded body
-      server.use(express.json()); // to parse JSON body
+  //     Therefore, to resolve this Undefined issue by using :-
+  //     server.use(express.urlencoded({ extended: true })); // to parse form-urlencoded body
+  //     server.use(express.json()); // to parse JSON body
 
-   */
+  //  */
 
-  console.log(request.body); // Now, Getting the data;
-  /**
-   *Restarting 'app.js'
-    Server is running at Port :-) 7000
-    MongoDB Connected Successfully...!
-    { backendLogInEmail: 'kallu@gmail.com', backendLogInPassword: '123' }
-   *
-   */
+  // console.log(request.body); // Now, Getting the data;
+  // /**
+  //  *Restarting 'app.js'
+  //   Server is running at Port :-) 7000
+  //   MongoDB Connected Successfully...!
+  //   { backendLogInEmail: 'kallu@gmail.com', backendLogInPassword: '123' }
+  //  *
+  //  */
+
+  // // Destructing the data of request.body instead of writing the whole such as (const email = request.body.backendLogInEmail) and all;
+  // const { backendLogInEmail, backendLogInPassword } = request.body;
+
+  const { backendLogInEmail, backendLogInPassword } = request.body;
+
+  // Find by userEmail (schema field), not backendLogInEmail
+  let loginUser = await UserSCHEMA.findOne({ userEmail: backendLogInEmail });
+
+  if (!loginUser) {
+    response.render("login.ejs");
+    console.log("User email is incorrect..!");
+  } else if (loginUser.userPassword !== backendLogInPassword) {
+    response.render("login.ejs");
+    console.log("Your password is not correct..!");
+  } else {
+    response.render("profile.ejs");
+    console.log("You are on profile page...");
+  }
 });
 
 // // // Ending of posting the data on database and cloudinary and comparing with the saved data for login page route;
