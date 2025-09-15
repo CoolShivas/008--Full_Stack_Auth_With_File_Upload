@@ -11,6 +11,29 @@ mongoose
   .then(() => console.log("MongoDB Connected Successfully...!"))
   .catch((error) => console.log(error));
 
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
+
+// // // Starting of formation of Models Schema i.e., userSchema as a reference to save it on database of MongoDB;
+
+const userSchema = new mongoose.Schema({
+  userName: String,
+  userEmail: String,
+  userPassword: String,
+  fileName: String,
+  publicID: String,
+  imageURL: String,
+});
+
+const User = mongoose.model("user", userSchema);
+
+// // // Ending of formation of Models Schema i.e., userSchema as a reference to save it on database of MongoDB;
+
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
+
+// // // Starting of Rendering of Login & Register Page on Client Side i.e., on Browser;
+
 server.get("/", (request, response) => {
   response.render("login.ejs");
 });
@@ -18,6 +41,11 @@ server.get("/", (request, response) => {
 server.get("/register", (request, response) => {
   response.render("register.ejs");
 });
+
+// // // Ending of Rendering of Login & Register Page on Client Side i.e., on Browser;
+
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
 
 const PORT = 7000;
 
