@@ -11,6 +11,10 @@ mongoose
   .then(() => console.log("MongoDB Connected Successfully...!"))
   .catch((error) => console.log(error));
 
+server.get("/", (request, response) => {
+  response.render("login.ejs");
+});
+
 const PORT = 7000;
 
 server.listen(PORT, () => {

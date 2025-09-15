@@ -20,6 +20,7 @@
   "homepage": "https://github.com/CoolShivas/008--Full_Stack_Auth_With_File_Upload#readme",
   "description": "",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mongoose": "^8.18.1"
   }
