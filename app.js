@@ -1,5 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
+import multer from "multer";
 
 const server = express();
 
@@ -54,6 +56,27 @@ server.get("/register", (request, response) => {
 
 ///////***************************************************************************************************** *//////
 ///////***************************************************************************************************** *//////
+
+// // // Starting of Setting Up the multer storage path in VS code by file name and its path;
+
+const storage = multer.diskStorage({
+  // // Maked the new location to upload the images on public/uploads folder;
+  destination: "./public/uploads",
+  // // Adding more details with the file such as date, original name of file;
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// // // Ending of Setting Up the multer storage path in VS code by file name and its path;
+
+///////***************************************************************************************************** *//////
+///////***************************************************************************************************** *//////
+
+server.post("/upload", upload.single("fileUploaded"), async(request, response));
 
 const PORT = 7000;
 
