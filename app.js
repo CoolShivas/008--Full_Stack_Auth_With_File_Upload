@@ -207,9 +207,25 @@ server.post("/logIn", async (request, response) => {
     response.render("login.ejs");
     console.log("Your password is not correct..!");
   } else {
-    response.render("profile.ejs");
+    // // Now, Passing the loginUser to Front-End for data rendering to profile page;
+    response.render("profile.ejs", { loginUser });
     console.log("You are on profile page...");
   }
+
+  // console.log("Login User is having => ", loginUser);
+  /**
+   * Login User is having =>  {
+  _id: new ObjectId('68c7f0bcd244b549f76d94a5'),
+  userName: 'Hemendra',
+  userEmail: 'hemu@gmail.com',
+  userPassword: '123',
+  fileName: 'public\\uploads\\backendRegisterUploadImage-1757933750260.jpg',
+  publicID: 'FUllStack_Authen/gxsnetevdbghnw795vkl',
+  imageURL: 'https://res.cloudinary.com/dkxfog2vk/image/upload/v1757933755/FUllStack_Authen/gxsnetevdbghnw795vkl.jpg',
+  __v: 0
+}
+   * 
+   */
 });
 
 // // // Ending of posting the data on database and cloudinary and comparing with the saved data for login page route;

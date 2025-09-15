@@ -22,11 +22,11 @@
 
   <body class="bg-black text-light">
     <div class="container my-5 p-3 text-center">
-      <h1 class="text-center">Welcome, User Name</h1>
-      <h3>User Email ID</h3>
+      <h1 class="text-center">Welcome, <%= loginUser.userName %></h1>
+      <h3><%= loginUser.userEmail %></h3>
       <div class="my-5">
         <img
-          src="#"
+          src="<%= loginUser.imageURL %>"
           alt="image not found"
           style="
             width: 250px;
