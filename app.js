@@ -15,6 +15,10 @@ server.get("/", (request, response) => {
   response.render("login.ejs");
 });
 
+server.get("/register", (request, response) => {
+  response.render("register.ejs");
+});
+
 const PORT = 7000;
 
 server.listen(PORT, () => {
